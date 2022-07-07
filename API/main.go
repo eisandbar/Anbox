@@ -1,6 +1,7 @@
 package main
 
 import (
+	database "eisandbar/anbox/database"
 	ep "eisandbar/anbox/endpoints"
 	"fmt"
 	"log"
@@ -17,6 +18,11 @@ const (
 )
 
 func main() {
+	// Connecting to DB and initializing tables
+	database.Repo.Connect()
+	database.Repo.InitDB()
+	defer database.Repo.Close()
+
 	router := mux.NewRouter()
 	setRoutes(router)
 
